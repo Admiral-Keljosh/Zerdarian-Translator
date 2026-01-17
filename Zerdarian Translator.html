@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zerdarian Translator</title>
+<style>
+body {
+  font-family: system-ui, sans-serif;
+  background: #0b0b10;
+  color: #e8e8f0;
+  padding: 16px;
+}
+h1 {
+  text-align: center;
+}
+textarea {
+  width: 100%;
+  min-height: 120px;
+  margin-top: 10px;
+  padding: 12px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: none;
+  box-sizing: border-box;
+}
+#output, #counter {
+  background: #151522;
+  margin-top: 10px;
+}
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  background: #7b3fe4;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<h1>📜 Zerdarian Translator</h1>
+
+<textarea id="input" placeholder="Type English here..."></textarea>
+<button onclick="translateText()">Translate → Zerdarian</button>
+<textarea id="output" placeholder="Zerdarian symbols appear here..." readonly></textarea>
+
+<textarea id="counterInput" placeholder="Paste Zerdarian symbols here..."></textarea>
+<button onclick="counterTranslate()">Translate → English</button>
+<textarea id="counter" placeholder="English appears here..." readonly></textarea>
+
+<script>
+// Zerdarian alphabet mapping
+const map = {
+  "a":"𓂀","b":"⟁","c":"Ͼ","d":"ᚧ","e":"ꙮ","f":"ƒ","g":"𐌈",
+  "h":"⎔","i":"Ⅰ","j":"Ɉ","k":"𐍈","l":"⅃","m":"𓅓","n":"₪",
+  "o":"⊙","p":"¶","q":"Ϙ","r":"𐍂","s":"§","t":"⊥","u":"∪",
+  "v":"∇","w":"Ѫ","x":"✕","y":"⸸","z":"Ƶ"
+};
+
+// Reverse mapping for counter-translation
+const reverseMap = {};
+for (let key in map) {
+  reverseMap[map[key]] = key;
+}
+
+function translateText() {
+  let text = document.getElementById("input").value.toLowerCase();
+  let result = "";
+  for (let ch of text) {
+    result += map[ch] || ch;
+  }
+  document.getElementById("output").value = result;
+}
+
+function counterTranslate() {
+  let text = document.getElementById("counterInput").value;
+  let result = "";
+  for (let ch of text) {
+    result += reverseMap[ch] || ch;
+  }
+  document.getElementById("counter").value = result;
+}
+</script>
+
+</body>
+</html>
